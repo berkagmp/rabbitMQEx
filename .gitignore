@@ -2,3 +2,7 @@
 *.class
 *.bat
 *.txt
+*.log
+.classpath
+.project
+bin

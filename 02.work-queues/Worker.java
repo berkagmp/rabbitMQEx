@@ -21,11 +21,10 @@ public class Worker {
     int prefetchCount = 1;
     channel.basicQos(prefetchCount);
     /*
-     * In order to defeat that we can use the basicQos method with the prefetchCount
-     * = 1 setting. This tells RabbitMQ not to give more than one message to a
-     * worker at a time. Or, in other words, don't dispatch a new message to a
-     * worker until it has processed and acknowledged the previous one. Instead, it
-     * will dispatch it to the next worker that is not still busy.
+     * In order to defeat that we can use the basicQos method with the prefetchCount = 1 setting.
+     * This tells RabbitMQ not to give more than one message to a worker at a time. Or, in other
+     * words, don't dispatch a new message to a worker until it has processed and acknowledged the
+     * previous one. Instead, it will dispatch it to the next worker that is not still busy.
      */
 
     DeliverCallback deliverCallback = (consumerTag, delivery) -> {
@@ -41,10 +40,9 @@ public class Worker {
     };
 
     /*
-     * Manual message acknowledgments are turned on by default. In previous examples
-     * we explicitly turned them off via the autoAck=true flag. It's time to set
-     * this flag to false and send a proper acknowledgment from the worker, once
-     * we're done with a task.
+     * Manual message acknowledgments are turned on by default. In previous examples we explicitly
+     * turned them off via the autoAck=true flag. It's time to set this flag to false and send a
+     * proper acknowledgment from the worker, once we're done with a task.
      */
     boolean autoAck = true; // acknowledgment is covered below
     channel.basicConsume(TASK_QUEUE_NAME, autoAck, deliverCallback, consumerTag -> {
